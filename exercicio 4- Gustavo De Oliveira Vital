@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<std::string> lista;
+
+    while (true) {
+        // Mostra a lista atual de itens
+        std::cout << "Lista atual:\n";
+        for (const std::string& item : lista) {
+            std::cout << "- " << item << std::endl;
+        }
+
+        // Opções para o usuário
+        std::cout << "\nOpções:\n";
+        std::cout << "1. Adicionar item\n";
+        std::cout << "2. Remover item\n";
+        std::cout << "3. Sair\n";
+        std::cout << "Escolha uma opção: ";
+
+        int escolha;
+        std::cin >> escolha;
+
+        if (escolha == 1) {
+            // Adicionar item
+            std::string novoItem;
+            std::cout << "Digite o nome do item a ser adicionado: ";
+            std::cin.ignore(); // Limpa o buffer para evitar problemas com std::getline
+            std::getline(std::cin, novoItem);
+
+            lista.push_back(novoItem);
+            std::cout << "Item adicionado à lista.\n";
+        }
+        else if (escolha == 2) {
+            // Remover item
+            if (lista.empty()) {
+                std::cout << "A lista está vazia. Nada para remover.\n";
+            } else {
+                std::string itemRemover;
+                std::cout << "Digite o nome do item a ser removido: ";
+                std::cin.ignore(); // Limpa o buffer para evitar problemas com std::getline
+                std::getline(std::cin, itemRemover);
+
+                auto it = std::find(lista.begin(), lista.end(), itemRemover);
+                if (it != lista.end()) {
+                    lista.erase(it);
+                    std::cout << "Item removido da lista.\n";
+                } else {
+                    std::cout << "Item não encontrado na lista.\n";
+                }
+            }
+        }
+        else if (escolha == 3) {
+            // Sair
+            std::cout << "Encerrando o programa.\n";
+            break;
+        }
+        else {
+            // Opção inválida
+            std::cout << "Opção inválida. Por favor, escolha uma opção válida.\n";
+        }
+
+        // Limpa o buffer após cada iteração do loop para evitar problemas com entradas inválidas
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    return 0;
+}
