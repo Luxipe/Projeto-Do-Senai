@@ -1,0 +1,162 @@
+Lista 2/3
+
+1. Exercícios de identificação e correção de erros:
+
+a) Identifique o erro e corrija o código a seguir:
+
+#include <stdio.h>
+
+int main() {
+   int x = 10;
+   int y = 5;
+   int resultado = x - y;
+   printf("A subtração de x e y é: %d\n", resultado);
+   return 0;
+}
+
+terminal:subtra├º├úo de x e y ├®: 5
+Isso ocorre porque a subtração de x (10) e y (5) resulta em 5, que é atribuído à variável resultado. Em seguida, o valor de resultado é exibido na saída usando printf.
+Não há necessidade de fazer alterações no código
+
+
+1-b)#include <stdio.h>
+
+int main() {
+   float altura;
+   printf("Digite sua altura: ");
+   if (scanf("%f", &altura) == 1) {
+       printf("Sua altura é: %.2f\n", altura);
+   } else {
+       printf("Erro ao ler a altura.\n");
+   }
+   return 0;
+}
+
+respostas
+utilizei &altura no argumento da função scanf para passar o endereço de memória da variável altura. Além disso, adicionei uma verificação para garantir que a leitura da altura foi bem-sucedida. Se a função scanf retornar o valor 1, significa que um valor de ponto flutuante foi lido corretamente. Caso contrário, uma mensagem de erro é exibida.
+
+Agora, o programa solicitará que o usuário digite a altura, lerá o valor fornecido e o exibirá corretamente na saída.
+terminal: Digite sua altura:
+Digite sua altura: 2
+Sua altura ├®: 2.00
+
+1-c) 
+#include <stdio.h>
+
+int main() {
+   int i;
+   for (i = 0; i < 5; i++)
+        printf("%d\n", i);
+   return 0;
+}
+terminal:0
+1
+2
+3
+4
+
+respostas Isso ocorre porque o loop for inicia i com o valor 0 e continua enquanto i for menor que 5. A cada iteração do loop, o valor de i é impresso usando printf, seguido por uma nova linha.
+Não há necessidade de fazer alterações no código fornecido
+
+2-a) Crie um programa em C++ que verifica se um número fornecido pelo usuário é positivo, negativo ou zero.
+a)
+#include <iostream>
+
+int main() {
+    int number;
+
+    // Solicita ao usuário fornecer um número
+    std::cout << "Digite um número: ";
+    std::cin >> number;
+
+    // Verifica se o número é positivo, negativo ou zero
+    if (number > 0) {
+        std::cout << "O número é positivo." << std::endl;
+    } else if (number < 0) {
+        std::cout << "O número é negativo." << std::endl;
+    } else {
+        std::cout << "O número é zero." << std::endl;
+    }
+
+    return 0;
+}
+terminal: Digite um n├║mero:
+Digite um n├║mero: 2
+O n├║mero ├® positivo.
+
+b)Crie um programa em C++ que encontra o maior elemento em um array fornecido pelo usuário.
+#include <iostream>
+
+int main() {
+    int size;
+
+    // Solicita ao usuário o tamanho do array
+    std::cout << "Digite o tamanho do array: ";
+    std::cin >> size;
+
+    // Cria o array com o tamanho fornecido
+    int array[size];
+
+    // Solicita ao usuário os elementos do array
+    std::cout << "Digite os elementos do array: ";
+    for (int i = 0; i < size; i++) {
+        std::cin >> array[i];
+    }
+
+    // Encontra o maior elemento no array
+    int maxElement = array[0];
+    for (int i = 1; i < size; i++) {
+        if (array[i] > maxElement) {
+            maxElement = array[i];
+        }
+    }
+
+    // Exibe o maior elemento
+    std::cout << "O maior elemento no array é: " << maxElement << std::endl;
+
+    return 0;
+}
+terminal: Digite o tamanho do array:
+Digite o tamanho do array:2
+Digite os elementos do array: 3
+O maior elemento no array ├®: 3
+
+Crie um programa em C++ que verifica se uma string fornecida pelo usuário é um palíndromo (lê-se da mesma forma de trás para frente).
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+c) bool isPalindrome(const std::string& str) {
+    std::string reversedStr = str;
+    std::reverse(reversedStr.begin(), reversedStr.end());
+
+    return str == reversedStr;
+}
+
+int main() {
+    std::string inputString;
+
+    // Solicita ao usuário fornecer uma string
+    std::cout << "Digite uma string: ";
+    std::getline(std::cin, inputString);
+
+    // Remove os espaços em branco da string
+    inputString.erase(std::remove_if(inputString.begin(), inputString.end(), isspace), inputString.end());
+
+    // Converte a string para minúsculas
+    std::transform(inputString.begin(), inputString.end(), inputString.begin(), ::tolower);
+
+    // Verifica se a string é um palíndromo
+    if (isPalindrome(inputString)) {
+        std::cout << "A string é um palíndromo." << std::endl;
+    } else {
+        std::cout << "A string não é um palíndromo." << std::endl;
+    }
+
+    return 0;
+}
+
+c) terminal: Digite uma string: 2
+A string ├® um pal├¡ndromo
+
+

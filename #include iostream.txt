@@ -1,0 +1,218 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+// Declaração antecipada da classe Personagem
+class Personagem;
+
+int calcular_custo_sessao(int num_jogadores, int duracao_horas);
+
+// Classe Equipamento
+class Equipamento {
+public:
+    string nome;
+    string forca;
+    string atributo;
+    int valor;
+};
+
+// Classe Personagem
+class Personagem {
+public:
+    string nome;
+    string classe;
+    int nivel;
+    string raca;
+    int pontosVida;
+    int pontosAtaque;
+    vector<string> habilidades;
+    vector<Equipamento> equipamentos;
+
+    // Função para adicionar um equipamento à lista de equipamentos do personagem
+    void adicionarEquipamento() {
+        Equipamento equipamento;
+
+        cout << "Nome do equipamento: ";
+        cin.ignore();
+        getline(cin, equipamento.nome);
+
+        cout << "Força do equipamento: ";
+        getline(cin, equipamento.forca);
+
+        cout << "Atributo do equipamento: ";
+        getline(cin, equipamento.atributo);
+
+        cout << "Valor do equipamento: ";
+        cin >> equipamento.valor;
+        cin.ignore(); // Adicionado ponto-e-vírgula faltante aqui
+
+        equipamentos.push_back(equipamento);
+
+        cout << "Equipamento adicionado com sucesso!" << endl;
+    }
+
+    // Função para remover um equipamento da lista de equipamentos do personagem com base no nome
+    void removerEquipamento(const string& nomeEquipamento) {
+        auto it = std::find_if(equipamentos.begin(), equipamentos.end(), [&nomeEquipamento](const Equipamento& equip) {
+            return equip.nome == nomeEquipamento;
+        });
+
+        if (it != equipamentos.end()) {
+            equipamentos.erase(it);
+            cout << "Equipamento removido com sucesso!" << endl;
+        } else {
+            cout << "Equipamento não encontrado na lista!" << endl;
+        }
+    }
+
+    // Função para exibir todos os equipamentos na tela
+    void exibirEquipamentos() const {
+        cout << "Equipamentos:" << endl;
+        for (size_t i = 0; i < equipamentos.size(); i++) {
+            const Equipamento& equipamento = equipamentos[i];
+            cout << "Nome: " << equipamento.nome << endl;
+            cout << "Força: " << equipamento.forca << endl;
+            cout << "Atributo: " << equipamento.atributo << endl;
+            cout << "Valor: " << equipamento.valor << endl;
+            cout << endl;
+        }
+    }
+
+    // Função para exibir a ficha do personagem na tela
+    void exibirFichaPersonagem() const {
+        cout << "Nome: " << nome << endl;
+        cout << "Rank: " << classe << endl;
+        cout << "Nível: " << nivel << endl;
+        cout << "Raça: " << raca << endl;
+        cout << "Pontos de Vida: " << pontosVida << endl;
+        cout << "Pontos de Ataque: " << pontosAtaque << endl;
+
+        cout << "Habilidades: ";
+        for (size_t i = 0; i < habilidades.size(); i++) {
+            cout << habilidades[i] << endl;
+        }
+
+        cout << "Equipamentos: " << endl;
+        for (size_t i = 0; i < equipamentos.size(); i++) {
+            const Equipamento& equipamento = equipamentos[i];
+
+            cout << "Nome: " << equipamento.nome << endl;
+            cout << "Força: " << equipamento.forca << endl;
+            cout << "Atributo: " << equipamento.atributo << endl;
+            cout << "Valor: " << equipamento.valor << endl;
+            cout << endl;
+        }
+    }
+};
+
+// Classe Guilda
+class Guilda {
+public:
+    string nome;
+    vector<Personagem> membros;
+};
+
+int calcular_custo_sessao(int num_jogadores, int duracao_horas) {
+    int custo_base = 20;
+    int custo_adicional_por_jogador = 3;
+    int custo_total = custo_base + (num_jogadores - 4) * custo_adicional_por_jogador;
+
+    if (duracao_horas > 8) {
+        int custo_por_hora_extra = 4;
+        int custo_extra = (duracao_horas - 8) * custo_por_hora_extra;
+        custo_total += custo_extra;
+    }
+
+    return custo_total;
+}
+
+int main() {
+    Guilda guilda;
+
+    cout << "===== Criação de Ficha de Personagem =====" << endl;
+
+    cout << "Nome da guilda: ";
+    getline(cin, guilda.nome);
+
+    // Adicionar personagens à guilda
+    while (true) {
+        char resposta;
+        cout << "Deseja adicionar um personagem à guilda? (S/N): ";
+        cin >> resposta;
+        cin.ignore();
+
+        if (resposta == 'N' || resposta == 'n') {
+            break;
+        }
+
+        Personagem personagem;
+
+        cout << "Nome do personagem: " << endl;
+        getline(cin, personagem.nome);
+
+        cout << "Rank do personagem: " << endl;
+        getline(cin, personagem.classe);
+
+        cout << "Nível do personagem: " << endl;
+        cin >> personagem.nivel;
+
+        cout << "Raça do personagem: " << endl;
+        cin.ignore();
+        getline(cin, personagem.raca);
+
+        cout << "Pontos de Vida do personagem: " << endl; 
+        cin >> personagem.pontosVida;
+
+        cout << "Pontos de Ataque do personagem: " << endl;
+        cin >> personagem.pontosAtaque;
+
+        cout << "Habilidades do personagem  (digite 'fim' para encerrar): " << endl;
+        string habilidade;
+        cin.ignore();
+        while (true) {
+            getline(cin, habilidade);
+
+            if (habilidade == "fim") {
+                break;
+            }
+
+            personagem.habilidades.push_back(habilidade);
+        }
+
+        personagem.adicionarEquipamento();
+
+        guilda.membros.push_back(personagem);
+
+        cout << "Personagem adicionado à guilda com sucesso!" << endl;
+    }
+
+    cout << "===== Guilda =====" << endl;
+    cout << "Nome da guilda: " << guilda.nome << endl;
+    cout << "Membros da guilda: " << endl;
+
+    for (size_t i = 0; i < guilda.membros.size(); i++) {
+        const Personagem& personagem = guilda.membros[i];
+
+        cout << "Nome: " << personagem.nome << endl;
+        cout << "Rank: " << personagem.classe << endl;
+        cout << "Nível: " << personagem.nivel << endl;
+        cout << "Raça: " << personagem.raca << endl;
+        cout << "Pontos de Vida: " << personagem.pontosVida << endl;
+        cout << "Pontos de Ataque: " << personagem.pontosAtaque << endl;
+
+        cout << "Habilidades: ";
+        for (size_t i = 0; i < personagem.habilidades.size(); i++) {
+            cout << personagem.habilidades[i] << endl;
+        }
+
+        personagem.exibirEquipamentos();
+
+        cout << endl;
+    }
+
+    return 0;
+}

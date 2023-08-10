@@ -1,0 +1,168 @@
+Lista 1/3
+1. Exercícios de identificação e correção de erros:
+
+a) Identifique o erro e corrija o código a seguir:
+
+
+resposta a) na linha do printf o erro esta faltando um parenteses na chamada função
+tem que adicionar parentese de fechamento na parte certa pra dar certo, pra dar o resultado a soma de x e y : 7
+
+#include <stdio.h>
+
+int main() {
+   int x = 5;
+   int y = 2;
+   int resultado = x + y;
+   printf("A soma de x e y é: %d\n", resultado);
+   return 0;
+}
+
+Terminal: a soma de x e y : 7
+
+
+b) Identifique o erro e corrija o código a seguir:
+
+resposta b) : na linha do codigo o codigo tecnicamente esta certa, mas se tem que mudar "i" pra 1 para ser certo
+e no terminal ficar de acordo com a soma dos numeros
+
+#include <stdio.h>
+
+int main() {
+   int n = 10;
+   int soma = 0;
+
+   for (int i = 1; i <= n; i++) {
+        soma += i;
+   }
+
+   printf("A soma dos números de 1 a %d é: %d\n", n, soma);
+   return 0;
+}
+
+terminal: a soma dos numeros de 1 a 10 :55
+
+c)Identifique o erro e corrija o código a seguir:
+
+resposta c) : o %9s, serve pra scanfs_s limitar o acesso pra 9 caracteres. o tamanho maximo do buffer sizeof(nome)' pra nao garantir estouro de buffer
+"scanfs_s com 1.  Se a leitura for bem feita, a saudação e impressa, caso contrario nenhuma saida será exibida. vai evitar um caso de um valor inicializado em caso de falha na leitura
+
+#include <stdio.h>
+
+int main() {
+   char nome[10];
+   printf("Digite seu nome: ");
+   if (scanf_s("%9s", nome, sizeof(nome)) == 1) {
+       printf("Olá, %s!\n", nome);
+   }
+   return 0;
+}
+
+terminal digite seu nome: gustavo
+Ol├í, gustavo!
+
+2-Exercícios de criação de código simples (com exemplos):
+
+a) Crie um programa em C/C++ que calcula a média de três números fornecidos pelo usuário e exibe o resultado.
+
+#include  <iostream>
+
+int main() {
+
+    //declaração e inicialização das variáveis
+    int numero1 = 5;
+
+    int numero2 = 8;
+
+    int numero3 = 12;
+
+    float media;
+
+    
+    // Cálculo da média
+    media = (numero1 + numero2 + numero3) / 3.0;
+
+
+    //Exibição do resultado
+
+    std::cout << "A média dos números é: " << media << std::endl;
+
+
+    return 0;
+}
+
+terminal: A m├®dia dos n├║meros ├®: 8.33333
+
+2- b) Crie um programa em C/C++ que verifica se um número fornecido pelo usuário é primo.
+
+2- b)
+
+#include <iostream>
+
+bool isPrime(int n) {
+    // Verifica se o número é igual a 1, pois 1 não é primo
+    if (n == 1) {
+        return false;
+    }
+
+    // Verifica se o número é divisível por qualquer número de 2 a sqrt(n)
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    int num;
+
+    // Solicita ao usuário fornecer um número
+    std::cout << "Digite um número inteiro: ";
+    std::cin >> num;
+
+    // Verifica se o número é primo
+    if (isPrime(num)) {
+        std::cout << num << " é um número primo." << std::endl;
+    } else {
+        std::cout << num << " não é um número primo." << std::endl;
+    }
+
+    return 0;
+}
+
+terminal: Digite um n├║mero inteiro: 
+utilizando o terminal, Digite um n├║mero inteiro: 2
+2 ├® um n├║mero primo.
+
+
+2-c) 
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+int main() {
+    std::string inputString;
+
+    // Solicita ao usuário fornecer uma string
+    std::cout << "Digite uma palavra: ";
+    std::cin >> inputString;
+
+    // Inverte a ordem dos caracteres da string
+    std::reverse(inputString.begin(), inputString.end());
+
+    // Exibe a palavra invertida
+    std::cout << "A palavra invertida é: " << inputString << std::endl;
+
+    return 0;
+}
+terminal:Digite uma palavra:
+terminal:Digite uma palavra: guilherme
+terminal: A palavra invertida├®: emrehliug
+
+
+
+
+
+
+
